@@ -4,6 +4,8 @@
 
 // Set up an empty cart for use on this page.
 const cart = new Cart([]);
+let pickedItem;
+let qtyValue;
 
 // On screen load, we call this method to put all of the busmall options
 // (the things in the Product.allProducts array) into the drop down list.
@@ -37,11 +39,7 @@ function handleSubmit(event) {
 
 // TODO: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
-  let cartListArr=[];
-  let cartListArrAll=[];
-  let pickedItem;
-  let qtyValue;
-
+  
   // TODO: suss out the item picked from the select list
   const selectElement = document.getElementById('items');
   pickedItem = selectElement.options[selectElement.selectedIndex].value;
@@ -50,10 +48,8 @@ function addSelectedItemToCart() {
   qtyValue= document.getElementById('quantity').value;
 
   // TODO: using those, add one item to the Cart
-  cartListArr= [pickedItem,qtyValue ];
-  cartListArrAll.splice(0,0,cartListArr);
-  console.log(cartListArrAll);
-  localStorage.setItem('cart',JSON.stringify(cartListArrAll));
+
+  cart.addItem(pickedItem,qtyValue);
 
 }
 
@@ -61,8 +57,11 @@ function addSelectedItemToCart() {
 function updateCounter() {
 
   let cartCounter =JSON.parse(localStorage.cart).length;
+  //console.log(cartCounter);
 
-  document.getElementById('itemCount').value= cartCounter;
+  let spanElement = document.getElementById('itemCount');
+  spanElement.textContent=cartCounter;
+ //document.getElementsByTagName('a').value=cartCounter;
 
 
 }
@@ -70,7 +69,22 @@ function updateCounter() {
 // TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
   // TODO: Get the item and quantity from the form
+  const selectElement = document.getElementById('items');
+  pickedItem = selectElement.options[selectElement.selectedIndex].value;
+  qtyValue= document.getElementById('quantity').value;
+
   // TODO: Add a new element to the cartContents div with that information
+  let divElement= document.getElementById('cartContents')
+  let pelement = document.createElement('p');
+  divElement.appendChild(pelement);
+  let h1element = document.createElement('h1');
+  h1element.textContent=pickedItem;
+  pelement.appendChild(h1element);
+  let h1element2 = document.createElement('h1');
+  h1element2.textContent=qtyValue;
+  pelement.appendChild(h1element2);
+
+
 }
 
 // Set up the "submit" event listener on the form.

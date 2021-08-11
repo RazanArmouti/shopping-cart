@@ -20,21 +20,33 @@ function renderCart() {
 
 // TODO: Remove all of the rows (tr) in the cart table (tbody)
 function clearCart() {
-  var rowCount = table.rows.length;
-  for (var x=rowCount-1; x>0; x--) {
-    table.removeChild(tableRows[x]);
- }
+  let rowCount = table.rows.length;
+  for (let x=rowCount-1; x>0; x--) {
+    table.deleteRow(x);
+  }
 }
 
 // TODO: Fill in the <tr>'s under the <tbody> for each item in the cart
 function showCart() {
-
   // TODO: Find the table body
+  let tableBody = table.getElementsByTagName('tbody')[0];
+  let items= JSON.parse(localStorage.data);
 
   // TODO: Iterate over the items in the cart
   // TODO: Create a TR
   // TODO: Create a TD for the delete link, quantity,  and the item
   // TODO: Add the TR to the TBODY and each of the TD's to the TR
+  for (let i=0; i<items.length; i++){
+    let tr = document.createElement('tr');
+    tableBody.appendChild(tr);
+
+    for (let j=0; j<3; j++){
+      let td = document.createElement('td');
+      td.width='75px';
+      td.appendChild(document.createTextNode('Cell ' + i + ',' + j));
+      tr.appendChild(td);
+    }
+  }
 
 }
 

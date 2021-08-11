@@ -37,7 +37,7 @@ function showCart() {
   // TODO: Create a TR
   // TODO: Create a TD for the delete link, quantity,  and the item
   // TODO: Add the TR to the TBODY and each of the TD's to the TR
-  for (let i=0; i<cartList.length; i++){
+  for (let i=0; i<JSON.parse(localStorage.cart).length; i++){
     let tr = document.createElement('tr');
     tableBody.appendChild(tr);
 
@@ -48,10 +48,10 @@ function showCart() {
         td.appendChild(document.createTextNode('Remove Item'));
 
       }else if(j===1){
-        td.appendChild(document.createTextNode(cartList[i][0]));
+        td.appendChild(document.createTextNode(cartList[i][1]));
 
       }else if(j===2){
-        td.appendChild(document.createTextNode(cartList[i][1]));
+        td.appendChild(document.createTextNode(cartList[i][0]));
 
       }
 

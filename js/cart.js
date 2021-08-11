@@ -5,6 +5,7 @@
 const table = document.getElementById('cart');
 table.addEventListener('click', removeItemFromCart);
 let cart;
+let cartList=[];
 
 function loadCart() {
   const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
@@ -30,20 +31,30 @@ function clearCart() {
 function showCart() {
   // TODO: Find the table body
   let tableBody = table.getElementsByTagName('tbody')[0];
-  let items= JSON.parse(localStorage.data);
+  cartList= JSON.parse(localStorage.cart);
 
   // TODO: Iterate over the items in the cart
   // TODO: Create a TR
   // TODO: Create a TD for the delete link, quantity,  and the item
   // TODO: Add the TR to the TBODY and each of the TD's to the TR
-  for (let i=0; i<items.length; i++){
+  for (let i=0; i<cartList.length; i++){
     let tr = document.createElement('tr');
     tableBody.appendChild(tr);
 
     for (let j=0; j<3; j++){
       let td = document.createElement('td');
       td.width='75px';
-      td.appendChild(document.createTextNode('Cell ' + i + ',' + j));
+      if(j===0){
+        td.appendChild(document.createTextNode('Remove Item'));
+
+      }else if(j===1){
+        td.appendChild(document.createTextNode(cartList[i][0]));
+
+      }else if(j===2){
+        td.appendChild(document.createTextNode(cartList[i][1]));
+
+      }
+
       tr.appendChild(td);
     }
   }
@@ -51,10 +62,25 @@ function showCart() {
 }
 
 function removeItemFromCart(event) {
-
+  let trIndex =0;
+  cartList= JSON.parse(localStorage.cart);
   // TODO: When a delete link is clicked, use cart.removeItem to remove the correct item
+  let td = event.target.parentNode;
+  let tr = td.parentNode; // the row to be removed
+  trIndex= tr.rowIndex;
+  tr.parentNode.removeChild(tr);
+
   // TODO: Save the cart back to local storage
+  let storage = window.localStorage;
+  storage.clear();
+
+
+  cartList.splice(cart.indexOf(trIndex), 1);
+  storage.setItem('cart', JSON.stringify(cartList));
+
+
   // TODO: Re-draw the cart table
+  showCart();
 
 }
 

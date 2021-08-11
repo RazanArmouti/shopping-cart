@@ -38,6 +38,7 @@ function handleSubmit(event) {
 // TODO: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
   let cartListArr=[];
+  let cartListArrAll=[];
   let pickedItem;
   let qtyValue;
 
@@ -49,13 +50,22 @@ function addSelectedItemToCart() {
   qtyValue= document.getElementById('quantity').value;
 
   // TODO: using those, add one item to the Cart
-  cartListArr.push([pickedItem,qtyValue ]);
-  console.log(cartListArr);
-  localStorage.cart=JSON.stringify(cartListArr);
+  cartListArr= [pickedItem,qtyValue ];
+  cartListArrAll.splice(0,0,cartListArr);
+  console.log(cartListArrAll);
+  localStorage.setItem('cart',JSON.stringify(cartListArrAll));
+
 }
 
 // TODO: Update the cart count in the header nav with the number of items in the Cart
-function updateCounter() {}
+function updateCounter() {
+
+  let cartCounter =JSON.parse(localStorage.cart).length;
+
+  document.getElementById('itemCount').value= cartCounter;
+
+
+}
 
 // TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
